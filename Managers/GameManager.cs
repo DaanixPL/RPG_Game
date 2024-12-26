@@ -13,7 +13,6 @@ namespace RPG_JKL.Managers
     internal class GameManager
     {
         Player player;
-        Solider solider;
         MapManager mapManager;
         Camera2D camera;
         SkillManager skillManager;
@@ -28,14 +27,13 @@ namespace RPG_JKL.Managers
             Raylib.SetTargetFPS(60);
 
             player = new Player();
-            solider = new Solider(player);
             dashSkill = new DashSkill();
 
             mapManager = new MapManager();
             skillManager = new SkillManager();
             menu = new GameUI(dashSkill,player);
 
-            enemies.Add(solider);
+            enemies.Add(new Solider(player));
             // skils
             skillManager.AddSkill(dashSkill);
 
@@ -69,11 +67,12 @@ namespace RPG_JKL.Managers
             player.Sprint(deltaTime);
             player.Move(movementDirection, deltaTime);
             player.RotateTowardsMouse(camera);
-            player.TryShoot(deltaTime); // Próbuj strzelić
+            player.TryShoot(deltaTime);
             player.UpdateBullets(deltaTime);
 
-            solider.Update(deltaTime);
-
+            foreach (Solider enemy in enemies) {
+                enemy.Update(deltaTime);
+            }
             ShootCheck();
 
             skillManager.Update(player, deltaTime);
@@ -84,12 +83,19 @@ namespace RPG_JKL.Managers
         {
             foreach (Bullet bullet in player.bullets)
             {
-                if (Vector2.Distance(bullet.position, solider.position) < 30f) // 10f to próg odległości
+                foreach (Solider enemy in enemies)
                 {
-                    solider.hp -= 15;
-                    Console.WriteLine("solider hp: " + solider.hp);
-                    player.bullets.Remove(bullet);
-                    return;
+                    if (enemy.isDead != true) 
+                    { 
+                        if (Vector2.Distance(bullet.position, enemy.position) < 30f) // 30f próg odległości
+                        {
+
+                            enemy.hp -= 15;
+                            Console.WriteLine("solider hp: " + enemy.hp);
+                            player.bullets.Remove(bullet);
+                            return;
+                        }
+                    }
                 }
             }
             foreach(Solider enemy in enemies)
@@ -112,7 +118,10 @@ namespace RPG_JKL.Managers
 
             mapManager.Draw(camera);
             player.Draw();
-            solider.Draw();
+            foreach (Solider enemy in enemies)
+            {
+                enemy.Draw();
+            }
 
             Raylib.EndMode2D();
 

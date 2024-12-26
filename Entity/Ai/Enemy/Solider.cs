@@ -46,12 +46,13 @@ namespace RPG_JKL.Entity.Ai.Enemy
                     rotation,
                     Color.White
                 );
-            }
 
-            // Rysowanie pocisków
-            foreach (var bullet in bullets)
-            {
-                bullet.Draw(); // Rysowanie pocisków, które solider wystrzelił
+
+                // Rysowanie pocisków
+                foreach (var bullet in bullets)
+                {
+                    bullet.Draw(); // Rysowanie pocisków, które solider wystrzelił
+                }
             }
         }
 
@@ -127,20 +128,23 @@ namespace RPG_JKL.Entity.Ai.Enemy
 
         public void Update(float deltaTime)
         {
-            // Śledzenie gracza
-            FollowPlayer(deltaTime);
-
-            // Atakowanie gracza, jeśli jest w zasięgu
-            AttackPlayer(deltaTime);
-
-            // Zaktualizowanie pocisków
-            foreach (var bullet in bullets)
+            if (!isDead)
             {
-                bullet.Update(deltaTime); // Aktualizacja pozycji pocisku
-            }
+                // Śledzenie gracza
+                FollowPlayer(deltaTime);
 
-            // Usuwanie pocisków, które opuściły ekran
-            bullets.RemoveAll(bullet => Vector2.Distance(bullet.position, position) > Constantly.renderBullets);
+                // Atakowanie gracza, jeśli jest w zasięgu
+                AttackPlayer(deltaTime);
+
+                // Zaktualizowanie pocisków
+                foreach (var bullet in bullets)
+                {
+                    bullet.Update(deltaTime); // Aktualizacja pozycji pocisku
+                }
+
+                // Usuwanie pocisków, które opuściły ekran
+                bullets.RemoveAll(bullet => Vector2.Distance(bullet.position, position) > Constantly.renderBullets);
+            }
         }
     }
 }
