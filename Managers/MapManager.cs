@@ -14,9 +14,9 @@ namespace RPG_JKL.Managers
         {
             // Inicjalizacja tekstur
             textures = new Texture2D[3];
-            textures[0] = Raylib.LoadTexture("C:\\Users\\DaanixPL\\source\\repos\\RPG_JKL\\Assets\\grass.png");  // Trawa
-            textures[1] = Raylib.LoadTexture("C:\\Users\\DaanixPL\\source\\repos\\RPG_JKL\\Assets\\stone.png");  // Kamień
-            textures[2] = Raylib.LoadTexture("C:\\Users\\DaanixPL\\source\\repos\\RPG_JKL\\Assets\\water.png");  // Woda
+            textures[0] = Raylib.LoadTexture("RPG_JKL\\Assets\\grass.png");  // Trawa
+            textures[1] = Raylib.LoadTexture("RPG_JKL\\Assets\\stone.png");  // Kamień
+            textures[2] = Raylib.LoadTexture("RPG_JKL\\Assets\\water.png");  // Woda
 
             tilemap = new int[Constantly.mapWidth, Constantly.mapHeight];
 
