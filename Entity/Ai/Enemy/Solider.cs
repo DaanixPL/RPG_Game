@@ -6,7 +6,7 @@ namespace RPG_JKL.Entity.Ai.Enemy
 {
     internal class Solider
     {
-        private Texture2D soliderTexture = Raylib.LoadTexture("C:\\Users\\DaanixPL\\source\\repos\\RPG_JKL\\Assets\\Ai\\Solider.png");
+        private Texture2D soliderTexture = Raylib.LoadTexture("RPG_JKL\\Assets\\Ai\\Solider.png");
 
         private float speed = 200;
         private float attackRange = 150f;
