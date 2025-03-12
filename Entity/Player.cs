@@ -4,7 +4,7 @@ using System.Numerics;
 
 public class Player
 {
-    private Texture2D dashIcon = Raylib.LoadTexture("C:\\Users\\DaanixPL\\source\\repos\\RPG_JKL\\Assets\\player\\player.png");
+    private Texture2D dashIcon = Raylib.LoadTexture("RPG_JKL\\Assets\\player\\player.png");
 
     private float speed = 200;
     private float sprintSpeed = 400;
